@@ -13,7 +13,7 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      /* appBar: AppBar(
           title: const Text('Counter Functions'),
           actions: [
             IconButton(
@@ -24,37 +24,90 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
                   });
                 }),
           ],
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('$clickCounter',
-                  style: const TextStyle(
-                      fontSize: 160, fontWeight: FontWeight.w100)),
-
-              Text('Click${clickCounter == 1 ? '' : 's'}',
-                  style: const TextStyle(fontSize: 25))
-
-              // if( clickCounter == 1 )
-              //   const Text('Click', style: TextStyle(fontSize: 25)),
-
-              // if( clickCounter != 1 )
-              //   const Text('Clicks', style: TextStyle(fontSize: 25)),
-            ],
+        ), */
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment(
+                1.0, 0.0), // 10% of the width, so there are ten blinds.
+            colors: [Color(0xFF444152), Color(0xFF6f6c7d)], // whitish to gray
+            tileMode: TileMode.repeated, // repeats the gradient over the canvas
           ),
         ),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustomButton(
-              icon: Icons.refresh_rounded,
-              onPressed: () {
-                clickCounter = 0;
-                setState(() {});
-              },
+            Column(
+              children: [
+                Container(
+                  /* height: 128.0,
+                    width: 128.0, */
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.amber,
+                      width: 1.0,
+                    ),
+                    shape: BoxShape.circle,
+                    //image: DecorationImage(image: this.logo)
+                  ),
+                  child: CircleAvatar(
+                    radius: 100.0,
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    child: Text('$clickCounter',
+                        style: const TextStyle(
+                            fontSize: 100, fontWeight: FontWeight.bold),
+                            ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                Text(
+                  'Click${clickCounter == 1 ? '' : 's'}',
+                  style: const TextStyle(fontSize: 25),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                //const SizedBox(width: 10),
+                CustomButton(
+                  icon: Icons.exposure_minus_1_outlined,
+                  onPressed: () {
+                    if (clickCounter == 0) return;
+                    clickCounter--;
+                    setState(() {});
+                  },
+                ),
+                CustomButton(
+                  icon: Icons.refresh_rounded,
+                  onPressed: () {
+                    clickCounter = 0;
+                    setState(() {});
+                  },
+                ),
+                //const SizedBox(width: 10),
+                CustomButton(
+                  icon: Icons.plus_one,
+                  onPressed: () {
+                    clickCounter++;
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      /* floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //const SizedBox(width: 10),
             CustomButton(
               icon: Icons.exposure_minus_1_outlined,
               onPressed: () {
@@ -63,7 +116,14 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
                 setState(() {});
               },
             ),
-            const SizedBox(height: 10),
+            CustomButton(
+              icon: Icons.refresh_rounded,
+              onPressed: () {
+                clickCounter = 0;
+                setState(() {});
+              },
+            ),
+            //const SizedBox(width: 10),
             CustomButton(
               icon: Icons.plus_one,
               onPressed: () {
@@ -72,7 +132,8 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
               },
             ),
           ],
-        ));
+        ), */
+    );
   }
 }
 
@@ -88,8 +149,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
+    return MaterialButton(
       // shape: const StadiumBorder(),
+      padding: const EdgeInsetsDirectional.all(25.0),
+      color: Colors.amber,
       enableFeedback: true,
       elevation: 5,
       onPressed: onPressed,
